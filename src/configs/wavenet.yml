@@ -1,0 +1,20 @@
+model_dir: ${datetime:"checkpoints/wavenet"}
+model:
+  residual_layers: 30
+  residual_channels: 128
+  dilation_cycle_length: 10
+data:
+  root_dir: npydataset/Dataset_QPSK_SynOFDM_Mixture
+  batch_size: 32
+  num_workers: 2
+  train_fraction: 0.90
+distributed:
+  distributed: True
+  world_size: 2
+trainer:
+  fp16: True
+  learning_rate: 5e-4
+  max_steps: 500_000
+  log_every: 50
+  save_every: 2000
+  validate_every: 2000

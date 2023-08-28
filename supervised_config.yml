@@ -1,0 +1,23 @@
+model_dir: ${datetime:"checkpoints/supervised"}
+model:
+  residual_layers: 30
+  residual_channels: 128
+  dilation_cycle_length: 10
+data:
+  augmentation: True
+  target_len: 2560
+  batch_size: 256
+  num_workers: 2
+  train_fraction: 0.9
+  # coeff: -10  # This is in dB
+distributed:
+  distributed: true
+  world_size: 2
+trainer:
+  learning_rate: 5e-4
+  max_steps: 500_000
+  log_every: 50
+  save_every: 2000
+  validate_every: 1000
+  infer_every: 2000
+  num_infer_samples: 2

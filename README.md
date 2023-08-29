@@ -12,31 +12,35 @@ For a broader understanding and other helpful resources in the starter kit integ
 This starter kit equips you with essential resources to develop signal separation and interference rejection solutions. In this competition, the crux of the evaluation hinges on your ability to handle provided signal mixtures. Your task will be twofold:
 
 1.  Estimate the Signal of Interest (SOI) component within the two-component mixture.
-    
+
 2.  Deduce the best possible estimate of the underlying information bits encapsulated in the SOI.
 
 Delve into the specifics below for comprehensive details.
 
 ### TestSet1:
 
-[Click here for TestSet1A files](https://www.dropbox.com/scl/fi/d3wynqylml9mxctvt72eu/TestSet1A.zip?rlkey=izbum6lvw7hdz575lpetjdzf3&dl=0)
+[Click here for TestSet1Mixture files]()
 
-50 frames of each interference type have been reserved to form TestSet1. These will be released alongside the main dataset, and the mixtures from TestSet1A are generated from this collection. Please note that although TestSet1 is available for examination, the final evaluation for participants will be based on a hidden, unreleased set (TestSet2).
+50 frames of each interference type have been reserved to form TestSet1 (interference frames). These will be released alongside the main dataset (InterferenceSet frames), and the mixtures from TestSet1Mixture are generated from this collection. Please note that although TestSet1 is available for examination, the final evaluation for participants will be based on a hidden, unreleased set (TestSet2 interference frames).
 
 #### File Descriptions:
 
-***`TestSet1A_testmixture_[SOI Type]_[Interference Type].npy`:*** This is a numpy array of 1,100 x 40,960 np.complex64 floats; each row represents a mixture signal (40,960 complex values); the mixture signals are organized in increasing SINR, spanning11 SINR levels with 100 mixtures per SINR level.
+***`TestSet1Mixture_testmixture_[SOI Type]_[Interference Type].npy`:*** This is a numpy array of 1,100 x 40,960 np.complex64 floats; each row represents a mixture signal (40,960 complex values); the mixture signals are organized in increasing SINR, spanning11 SINR levels with 100 mixtures per SINR level.
 
-***`TestSet1A_testmixture_[SOI Type]_[Interference Type]_metadata.npy`:*** This is a numpy array of 1,100 x 5 objects containing metadata information. The first column is the scalar value (k) by which the interference component is scaled; the second column is the corresponding target SINR level in dB (calculated as $10 \log_{10}(k)$), the third column is the actual SINR computed based on the components present in the mixture (represented as $10 \log_{10}(P_{SOI}/P_{Interference}))$, and the fourth and fifth column are strings denoting the SOI type and interference type respectively
+***`TestSet1Mixture_testmixture_[SOI Type]_[Interference Type]_metadata.npy`:*** This is a numpy array of 1,100 x 5 objects containing metadata information. The first column is the scalar value (k) by which the interference component is scaled; the second column is the corresponding target SINR level in dB (calculated as $10 \log_{10}(k)$), the third column is the actual SINR computed based on the components present in the mixture (represented as $10 \log_{10}(P_{SOI}/P_{Interference}))$, and the fourth and fifth column are strings denoting the SOI type and interference type respectively
+
+Note that the Ground Truth of TestSet1Mixture will not be released. Participants are encouraged to send in their submissions at the respective intermediate deadlines (October 1st and November 1st) for evaluation against the ground truth.
+
+Participants are also provided with starter code to generate similar testing set mixtures (refer to "Helper Functions for Testing" and TestSet1Example) for their own testing.
 
 ### TestSet2:
 ***Expected November 25, 2023 (Not yet released)***
 
 50 frames of each interference type have been designated for TestSet2. Please note that this set will not be made available during the competition.
 
-The format for test mixtures in TestSet2A will be consistent with that of TestSet1A. However, any changes or modifications to the format will be communicated to the participants as the competition progresses.
+The format for test mixtures in TestSet2Mixture will be consistent with that of TestSet1Mixture. However, any changes or modifications to the format will be communicated to the participants as the competition progresses.
 
- 
+
 ### Submission Specifications:
 
 For every configuration defined by a specific SOI Type and Interference Type, participants are required to provide:
@@ -46,7 +50,7 @@ For every configuration defined by a specific SOI Type and Interference Type, pa
 -   This should contain complex values representing the estimated SOI component present.
 -   Filename: `[ID String]_[TestSet Identifier]_estimated_soi_[SOI Type]_[Interference Type].npy`
     (where ID String will be a unique identifier, e.g., your team name)
-    
+
 2.  Information Bits Estimate:
 -   A numpy array of dimensions 1,100 x B.    
 -   The value of B depends on the SOI type:
@@ -55,7 +59,7 @@ For every configuration defined by a specific SOI Type and Interference Type, pa
 -   The array should exclusively contain values of 1’s and 0’s, corresponding to the estimated information bits carried by the SOI.
 -   Filename: `[ID String]_[TestSet Identifier]_estimated_bits_[SOI Type]_[Interference Type].npy`
     (where ID String will be a unique identifier, e.g., your team name)
-    
+
 For guidance on mapping the SOI signal to the information bits, participants are advised to consult the provided demodulation helper functions (e.g., as used in [notebook/RFC_Demo.ipynb](https://github.com/RFChallenge/rfchallenge_singlechannel_starter_grandchallenge2023/blob/0.2.0/notebook/RFC_EvalSet_Demo.ipynb)).
 
 
@@ -67,13 +71,13 @@ cd rfchallenge
 
 # To obtain the dataset
 wget -O  dataset.zip "https://www.dropbox.com/scl/fi/zlvgxlhp8het8j8swchgg/dataset.zip?rlkey=4rrm2eyvjgi155ceg8gxb5fc4&dl=0"
-unzip  dataset.zip 
-rm dataset.zip 
+unzip  dataset.zip
+rm dataset.zip
 
-# To obtain TestSet1A
-wget -O  TestSet1A.zip  "https://www.dropbox.com/scl/fi/d3wynqylml9mxctvt72eu/TestSet1A.zip?rlkey=izbum6lvw7hdz575lpetjdzf3&dl=0"
-unzip TestSet1A.zip -d dataset
-rm TestSet1A.zip
+# To obtain TestSet1Mixture
+wget -O  TestSet1Mixture.zip  "https://www.dropbox.com/scl/fi/d3wynqylml9mxctvt72eu/TestSet1Mixture.zip?rlkey=izbum6lvw7hdz575lpetjdzf3&dl=0"
+unzip TestSet1Mixture.zip -d dataset
+rm TestSet1Mixture.zip
 ```
 
 Dependencies: The organizers have used the following libraries to generate the signal mixtures and train the relevant baseline models
@@ -93,20 +97,20 @@ Since participants are tasked with running their own inference, we are currently
 
 ## Helper Functions for Testing:
 
-To assist participants during testing, we provide several example scripts designed to create and test with evaluation sets analogous to TestSet1A.
+To assist participants during testing, we provide several example scripts designed to create and test with evaluation sets analogous to TestSet1Mixture.
 
 `python sampletest_testmixture_generator.py [SOI Type] [Interference Type]`
 
-This script generates a new evaluation set (default name: SampleEvalSetA) based on the raw interference dataset of TestSet1. Participants can employ this for cross-checking. The produced outputs include a mixture numpy array, a metadata numpy array (similar to what's given in TestSet1A), and a ground truth file.
+This script generates a new evaluation set (default name: TestSet1Example) based on the raw interference dataset of TestSet1. Participants can employ this for cross-checking. The produced outputs include a mixture numpy array, a metadata numpy array (similar to what's given in TestSet1Mixture), and a ground truth file.
 
-(Example generated SampleEvalSetA can be found [here](https://drive.google.com/file/d/1trKDjQ2QmIj8jOa3xAObyeURbcZsN2LR/view?usp=drive_link).)
+(Example generated TestSet1Example can be found [here](https://drive.google.com/file/d/1trKDjQ2QmIj8jOa3xAObyeURbcZsN2LR/view?usp=drive_link).)
 
 
 `python sampletest_tf_unet_inference.py [SOI Type] [Interference Type] [TestSet Identifier]`
 
 `python sampletest_torch_wavenet_inference.py [SOI Type] [Interference Type] [TestSet Identifier]`
 
-(Default: Use SampleEvalSetA for [TestSet Identifier])
+(Default: Use TestSet1Example for [TestSet Identifier])
 Scripts that leverage the supplied baseline methods (Modified U-Net on Tensorflow or WaveNet on PyTorch) for inference.
 
 `python sampletest_evaluationscript.py [SOI Type] [Interference Type] [TestSet Identifier] [Method ID String]`
@@ -114,7 +118,7 @@ Scripts that leverage the supplied baseline methods (Modified U-Net on Tensorflo
 [Method ID String] is your submission's unique identifier---refer to submission specifications.
 Utilize this script to assess the outputs generated from the inference script.
 
- 
+
 ## Helper Functions for Training:
 
 For a grasp of the basic functionalities concerning the communication signals (the SOI) and code snippets relating to how we load and extract interference signal windows to create signal mixtures, participants are referred to the RFC_Demo.ipynb in our starter code.
@@ -126,7 +130,7 @@ We also provide some reference codes used by the organizers to train the baselin
     -   `tfds_scripts/Dataset_[SOI Type]_[Interference Type]_Mixture.py`: Used in conjunction with the Tensorflow UNet training scripts; the H5DF files are processed into Tensorflow Datasets (TFDS) for training.
     -  ` example_preprocess_npy_dataset.py`: Used in conjunction with the Torch WaveNet training scripts; the H5DF files are processed into separate npy files (one file per mixture). An associated dataloader is supplied within the PyTorch baseline code.
     -   `example_generate_competition_trainmixture.py`: Another python script for generating example mixtures for training; this script creates a training set that is more aligned with the TestSet’s specifications (e.g., focusing solely on the 11 discrete target SINR levels).
-    
+
 
 2.  Model Training Scripts: The competition organizers have curated two implementations:
     -   UNet on Tensoflow: `train_unet_model.py`, accompanied with neural network specification in `src/unet_model.py`
@@ -139,8 +143,8 @@ Trained model weights for the UNet and WaveNet can be obtained here: [reference_
 Relevant bash commands:
 ```bash
 wget -O  reference_models.zip "https://www.dropbox.com/scl/fi/890vztq67krephwyr0whb/reference_models.zip?rlkey=6yct3w8rx183f0l3ok2my6rej&dl=0"
-unzip  reference_models.zip 
-rm reference_models.zip 
+unzip  reference_models.zip
+rm reference_models.zip
 ```
 
 ---
@@ -150,9 +154,9 @@ rm reference_models.zip
 As you embark on this challenge, we would like to offer avenues for assistance.
 Below are several channels through which you can reach out to us for help. Our commitment is to foster an environment that aids understanding and collaboration. Your questions, feedback, and concerns are instrumental in ensuring a seamless competition.
 * Discord: [To be provided]
-    
+
 * Github (under the Issues tab): https://github.com/RFChallenge/rfchallenge_singlechannel_starter_grandchallenge2023/issues
-    
+
 * Email: rfchallenge@mit.edu
     >Note: Please be aware that the organizers reserve the right to publicly share email exchanges on any of the above channels. This is done to promote information dissemination and provide clarifications to commonly asked questions.
 

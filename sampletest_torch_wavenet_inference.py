@@ -75,7 +75,7 @@ def run_inference(all_sig_mixture, soi_type, interference_sig_type):
 
 if __name__ == "__main__":
     soi_type, interference_sig_type = sys.argv[1], sys.argv[2]
-    testset_identifier = sys.argv[3] # 'SampleEvalSet'
+    testset_identifier = sys.argv[3] # 'TestSet1Example'
     id_string = 'Default_Torch_WaveNet'
     all_sig_mixture = np.load(os.path.join('dataset', f'{testset_identifier}_testmixture_{soi_type}_{interference_sig_type}.npy'))
     sig1_est, bit1_est = run_inference(all_sig_mixture, soi_type, interference_sig_type)

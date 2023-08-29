@@ -33,7 +33,7 @@ def get_soi_generation_fn(soi_sig_type):
     elif soi_sig_type == 'OFDMQPSK':
         generate_soi = lambda n, s_len: rfcutils.generate_ofdm_signal(n, s_len//80)
     elif soi_sig_type == 'CommSignal2':
-        with h5py.File(os.path.join('dataset', 'train_frame', soi_sig_type+'_raw_data.h5'),'r') as data_h5file:
+        with h5py.File(os.path.join('dataset', 'interferenceset_frame', soi_sig_type+'_raw_data.h5'),'r') as data_h5file:
             commsignal2_data = np.array(data_h5file.get('dataset'))
         def generate_commsignal2_signal(n, s_len):
             sig1 = commsignal2_data[np.random.randint(commsignal2_data.shape[0], size=(n)), :]
@@ -103,7 +103,7 @@ if __name__ == "__main__":
     soi_type = args.soi_sig_type
 
     interference_sig_type = args.interference_sig_type
-    with h5py.File(os.path.join('dataset', 'train_frame', interference_sig_type+'_raw_data.h5'),'r') as data_h5file:
+    with h5py.File(os.path.join('dataset', 'interferenceset_frame', interference_sig_type+'_raw_data.h5'),'r') as data_h5file:
         sig_data = np.array(data_h5file.get('dataset'))
         sig_type_info = data_h5file.get('sig_type')[()]
         if isinstance(sig_type_info, bytes):

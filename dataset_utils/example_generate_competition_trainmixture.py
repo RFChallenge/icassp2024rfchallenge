@@ -3,7 +3,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),'..')))
 import numpy as np
 import random
 import h5py
-from tqdm import tqdm 
+from tqdm import tqdm
 import pickle
 import argparse
 
@@ -41,14 +41,14 @@ def get_soi_generation_fn(soi_sig_type):
 
 
 def generate_demod_testmixture(soi_type, interference_sig_type, n_per_batch=default_n_per_batch):
-    
+
     generate_soi, demod_soi = get_soi_generation_fn(soi_type)
-    with h5py.File(os.path.join('dataset', 'train_frame', interference_sig_type+'_raw_data.h5'),'r') as data_h5file:
+    with h5py.File(os.path.join('dataset', 'interferenceset_frame', interference_sig_type+'_raw_data.h5'),'r') as data_h5file:
         sig_data = np.array(data_h5file.get('dataset'))
         sig_type_info = data_h5file.get('sig_type')[()]
         if isinstance(sig_type_info, bytes):
-            sig_type_info = sig_type_info.decode("utf-8") 
-    
+            sig_type_info = sig_type_info.decode("utf-8")
+
     random.seed(seed_number)
     np.random.seed(seed_number)
     tf.random.set_seed(seed_number)
@@ -76,16 +76,16 @@ def generate_demod_testmixture(soi_type, interference_sig_type, n_per_batch=defa
         all_sig_mixture.append(sig_mixture)
         all_sig1.append(sig_target)
         all_bits1.append(bits1)
-        
+
         actual_sinr = get_sinr_db(sig_target, sig_interference * coeff)
         meta_data.append(np.vstack(([rand_gain.numpy().real for _ in range(n_per_batch)], [sinr for _ in range(n_per_batch)], actual_sinr, [soi_type for _ in range(n_per_batch)], [interference_sig_type for _ in range(n_per_batch)])))
-        
+
     with tf.device('CPU'):
         all_sig_mixture = tf.concat(all_sig_mixture, axis=0).numpy()
         all_sig1 = tf.concat(all_sig1, axis=0).numpy()
         all_bits1 = tf.concat(all_bits1, axis=0).numpy()
-    
-    meta_data = np.concatenate(meta_data, axis=1).T        
+
+    meta_data = np.concatenate(meta_data, axis=1).T
     pickle.dump((all_sig_mixture, all_sig1, all_bits1, meta_data), open(os.path.join('dataset', f'Training_Dataset_{soi_type}_{interference_sig_type}.pkl'), 'wb'), protocol=4)
 
 if __name__ == "__main__":
@@ -94,9 +94,9 @@ if __name__ == "__main__":
     parser.add_argument('--random_seed', default=0, type=int, help='')
     parser.add_argument('--soi_sig_type', help='')
     parser.add_argument('--interference_sig_type', help='')
-    
+
     args = parser.parse_args()
-    
+
     soi_type = args.soi_sig_type
     interference_sig_type = args.interference_sig_type
 

@@ -2,7 +2,7 @@ import os, sys
 import numpy as np
 import random
 import h5py
-from tqdm import tqdm 
+from tqdm import tqdm
 import pickle
 
 import rfcutils
@@ -39,14 +39,14 @@ def get_soi_generation_fn(soi_sig_type):
 
 
 def generate_demod_testmixture(soi_type, interference_sig_type):
-    
+
     generate_soi, demod_soi = get_soi_generation_fn(soi_type)
     with h5py.File(os.path.join('dataset', 'test1_frame', interference_sig_type+'_test1_raw_data.h5'),'r') as data_h5file:
         sig_data = np.array(data_h5file.get('dataset'))
         sig_type_info = data_h5file.get('sig_type')[()]
         if isinstance(sig_type_info, bytes):
-            sig_type_info = sig_type_info.decode("utf-8") 
-    
+            sig_type_info = sig_type_info.decode("utf-8")
+
     random.seed(seed_number)
     np.random.seed(seed_number)
     tf.random.set_seed(seed_number)
@@ -74,20 +74,20 @@ def generate_demod_testmixture(soi_type, interference_sig_type):
         all_sig_mixture.append(sig_mixture)
         all_sig1.append(sig_target)
         all_bits1.append(bits1)
-        
+
         actual_sinr = get_sinr_db(sig_target, sig_interference * coeff)
         meta_data.append(np.vstack(([rand_gain.numpy().real for _ in range(n_per_batch)], [sinr for _ in range(n_per_batch)], actual_sinr, [soi_type for _ in range(n_per_batch)], [interference_sig_type for _ in range(n_per_batch)])))
-        
+
     with tf.device('CPU'):
         all_sig_mixture = tf.concat(all_sig_mixture, axis=0).numpy()
         all_sig1 = tf.concat(all_sig1, axis=0).numpy()
         all_bits1 = tf.concat(all_bits1, axis=0).numpy()
-        
-    pickle.dump((all_sig_mixture, all_sig1, all_bits1), open(os.path.join('dataset', f'GroundTruth_SampleEvalSetA_Dataset_{soi_type}_{interference_sig_type}.pkl'), 'wb'), protocol=4)
-    np.save(os.path.join('dataset', f'SampleEvalSetA_testmixture_{soi_type}_{interference_sig_type}'), all_sig_mixture)
-    
+
+    pickle.dump((all_sig_mixture, all_sig1, all_bits1), open(os.path.join('dataset', f'GroundTruth_TestSet1Example_Dataset_{soi_type}_{interference_sig_type}.pkl'), 'wb'), protocol=4)
+    np.save(os.path.join('dataset', f'TestSet1Example_testmixture_{soi_type}_{interference_sig_type}'), all_sig_mixture)
+
     meta_data = np.concatenate(meta_data, axis=1).T
-    np.save(os.path.join('dataset', f'SampleEvalSetA_testmixture_{soi_type}_{interference_sig_type}_metadata'), meta_data)
-    
+    np.save(os.path.join('dataset', f'TestSet1Example_testmixture_{soi_type}_{interference_sig_type}_metadata'), meta_data)
+
 if __name__ == "__main__":
     generate_demod_testmixture(sys.argv[1], sys.argv[2])

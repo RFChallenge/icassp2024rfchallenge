@@ -1,6 +1,6 @@
 # Single-Channel RF Challenge Starter Code
 
-[Click here for details on the challenge setup](https://rfchallenge.mit.edu/wp-content/uploads/2021/08/Challenge1_pdf_detailed_description.pdf)
+[Click here for details on the challenge setup]()
 
 For those eager to dive in, we have prepared a concise guide to get you started.
 
@@ -19,7 +19,7 @@ Delve into the specifics below for comprehensive details.
 
 ### TestSet1:
 
-[Click here for TestSet1Mixture files]()
+[Click here for TestSet1Mixture files](https://www.dropbox.com/scl/fi/d2kjtfmbh3mgxddbubf80/TestSet1Mixture.zip?rlkey=lwhzt1ayn2bqwosc9o9cq9dwr&dl=0)
 
 50 frames of each interference type have been reserved to form TestSet1 (interference frames). These will be released alongside the main dataset (InterferenceSet frames), and the mixtures from TestSet1Mixture are generated from this collection. Please note that although TestSet1 is available for examination, the final evaluation for participants will be based on a hidden, unreleased set (TestSet2 interference frames).
 
@@ -75,12 +75,12 @@ unzip  dataset.zip
 rm dataset.zip
 
 # To obtain TestSet1Mixture
-wget -O  TestSet1Mixture.zip  "https://www.dropbox.com/scl/fi/d3wynqylml9mxctvt72eu/TestSet1Mixture.zip?rlkey=izbum6lvw7hdz575lpetjdzf3&dl=0"
+wget -O  TestSet1Mixture.zip  "https://www.dropbox.com/scl/fi/d2kjtfmbh3mgxddbubf80/TestSet1Mixture.zip?rlkey=lwhzt1ayn2bqwosc9o9cq9dwr&dl=0"
 unzip TestSet1Mixture.zip -d dataset
 rm TestSet1Mixture.zip
 ```
 
-Dependencies: The organizers have used the following libraries to generate the signal mixtures and train the relevant baseline models
+Dependencies: The organizers have used the following libraries to generate the signal mixtures and test the relevant baseline models
 * python==3.7.13
 * numpy==1.21.6
 * tensorflow==2.8.2
@@ -101,9 +101,9 @@ To assist participants during testing, we provide several example scripts design
 
 `python sampletest_testmixture_generator.py [SOI Type] [Interference Type]`
 
-This script generates a new evaluation set (default name: TestSet1Example) based on the raw interference dataset of TestSet1. Participants can employ this for cross-checking. The produced outputs include a mixture numpy array, a metadata numpy array (similar to what's given in TestSet1Mixture), and a ground truth file.
+This script generates a new evaluation set (default name: TestSet1Example) based on the raw interference dataset of TestSet1. Participants can employ this for cross-checking. The produced outputs include a mixture numpy array, a metadata numpy array (similar to what's given in TestSet1Mixture), and a ground truth file. Participants can also change the seed number to generate new instances of such example test sets.
 
-(Example generated TestSet1Example can be found [here](https://drive.google.com/file/d/1trKDjQ2QmIj8jOa3xAObyeURbcZsN2LR/view?usp=drive_link).)
+(An example generated, named TestSet1Example (using seed_number=0), can be found [here](https://drive.google.com/file/d/1D1rHwEBpDRBVWhBGalEGJ0OzYbBeb4il/view?usp=drive_link).)
 
 
 `python sampletest_tf_unet_inference.py [SOI Type] [Interference Type] [TestSet Identifier]`
@@ -129,7 +129,7 @@ We also provide some reference codes used by the organizers to train the baselin
     -   `example_generate_rfc_mixtures.py`: Creates 240,000 sample mixtures with varying random target SINR levels (ranging between -33 dB and 3 dB). The output targets 60 H5DF files, each containing 4,000 mixtures.    
     -   `tfds_scripts/Dataset_[SOI Type]_[Interference Type]_Mixture.py`: Used in conjunction with the Tensorflow UNet training scripts; the H5DF files are processed into Tensorflow Datasets (TFDS) for training.
     -  ` example_preprocess_npy_dataset.py`: Used in conjunction with the Torch WaveNet training scripts; the H5DF files are processed into separate npy files (one file per mixture). An associated dataloader is supplied within the PyTorch baseline code.
-    -   `example_generate_competition_trainmixture.py`: Another python script for generating example mixtures for training; this script creates a training set that is more aligned with the TestSet’s specifications (e.g., focusing solely on the 11 discrete target SINR levels).
+    -   `example_generate_competition_trainmixture.py`: Another python script for generating example mixtures for training; this script creates a training set that is more aligned with the TestSet’s specifications (e.g., focusing solely on the 11 discrete target SINR levels). This script saves a pickle file `dataset/Training_Dataset_[SOI Type]_[Interference Type].pkl'` that contains `all_sig_mixture, all_sig1_groundtruth, all_bits1_groundtruth, meta_data`
 
 
 2.  Model Training Scripts: The competition organizers have curated two implementations:

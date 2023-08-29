@@ -2,7 +2,7 @@ import os, sys
 import numpy as np
 import random
 import h5py
-from tqdm import tqdm 
+from tqdm import tqdm
 import pickle
 
 import torch
@@ -42,16 +42,16 @@ def get_soi_generation_fn(soi_sig_type):
 
 
 def run_inference(all_sig_mixture, soi_type, interference_sig_type):
-    
+
     generate_soi, demod_soi = get_soi_generation_fn(soi_type)
-    
+
     cfg = OmegaConf.load("src/configs/wavenet.yml")
     cli_cfg = None
     cfg: Config = Config(**parse_configs(cfg, cli_cfg))
     cfg.model_dir = f"torchmodels/dataset_{soi_type.lower()}_{interference_sig_type.lower()}_mixture_wavenet"
     nn_model = Wave(cfg.model).cuda()
     nn_model.load_state_dict(torch.load(cfg.model_dir+"/weights.pt")['model'])
-    
+
     sig_mixture_comp = tf.stack((tf.math.real(all_sig_mixture), tf.math.imag(all_sig_mixture)), axis=-1)
     with torch.no_grad():
         nn_model.eval()
@@ -64,7 +64,7 @@ def run_inference(all_sig_mixture, soi_type, interference_sig_type):
     sig1_out = tf.concat(all_sig1_out, axis=0)
     print(sig1_out.shape)
     sig1_est = tf.complex(sig1_out[:,:,0], sig1_out[:,:,1])
-    
+
     bit_est = []
     for idx, sinr_db in tqdm(enumerate(all_sinr)):
         bit_est_batch, _ = demod_soi(sig1_est[idx*n_per_batch:(idx+1)*n_per_batch])
@@ -77,7 +77,7 @@ if __name__ == "__main__":
     soi_type, interference_sig_type = sys.argv[1], sys.argv[2]
     testset_identifier = sys.argv[3] # 'SampleEvalSet'
     id_string = 'Default_Torch_WaveNet'
-    all_sig_mixture = np.load(os.path.join('finaltestset', f'{testset_identifier}_testmixture_{soi_type}_{interference_sig_type}.npy'))
+    all_sig_mixture = np.load(os.path.join('dataset', f'{testset_identifier}_testmixture_{soi_type}_{interference_sig_type}.npy'))
     sig1_est, bit1_est = run_inference(all_sig_mixture, soi_type, interference_sig_type)
     np.save(os.path.join('outputs', f'{id_string}_{testset_identifier}_estimated_soi_{soi_type}_{interference_sig_type}'), sig1_est)
     np.save(os.path.join('outputs', f'{id_string}_{testset_identifier}_estimated_bits_{soi_type}_{interference_sig_type}'), bit1_est)

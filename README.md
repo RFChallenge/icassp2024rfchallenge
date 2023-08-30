@@ -25,7 +25,7 @@ Delve into the specifics below for comprehensive details.
 
 #### File Descriptions:
 
-***`TestSet1Mixture_testmixture_[SOI Type]_[Interference Type].npy`:*** This is a numpy array of 1,100 x 40,960 np.complex64 floats; each row represents a mixture signal (40,960 complex values); the mixture signals are organized in increasing SINR, spanning11 SINR levels with 100 mixtures per SINR level.
+***`TestSet1Mixture_testmixture_[SOI Type]_[Interference Type].npy`:*** This is a numpy array of 1,100 x 40,960 np.complex64 floats; each row represents a mixture signal (40,960 complex values); the mixture signals are organized in increasing SINR, spanning 11 SINR levels with 100 mixtures per SINR level.
 
 ***`TestSet1Mixture_testmixture_[SOI Type]_[Interference Type]_metadata.npy`:*** This is a numpy array of 1,100 x 5 objects containing metadata information. The first column is the scalar value (k) by which the interference component is scaled; the second column is the corresponding target SINR level in dB (calculated as $10 \log_{10}(k)$), the third column is the actual SINR computed based on the components present in the mixture (represented as $10 \log_{10}(P_{SOI}/P_{Interference}))$, and the fourth and fifth column are strings denoting the SOI type and interference type respectively
 
@@ -60,7 +60,7 @@ For every configuration defined by a specific SOI Type and Interference Type, pa
 -   Filename: `[ID String]_[TestSet Identifier]_estimated_bits_[SOI Type]_[Interference Type].npy`
     (where ID String will be a unique identifier, e.g., your team name)
 
-For guidance on mapping the SOI signal to the information bits, participants are advised to consult the provided demodulation helper functions (e.g., as used in [notebook/RFC_Demo.ipynb](https://github.com/RFChallenge/rfchallenge_singlechannel_starter_grandchallenge2023/blob/0.2.0/notebook/RFC_EvalSet_Demo.ipynb)).
+For guidance on mapping the SOI signal to the information bits, participants are advised to consult the provided demodulation helper functions (e.g., as used in [notebook/RFC_EvalSet_Demo.ipynb](https://github.com/RFChallenge/rfchallenge_singlechannel_starter_grandchallenge2023/blob/0.2.0/notebook/RFC_EvalSet_Demo.ipynb)).
 
 
 ## Starter Code Setup:
@@ -88,9 +88,9 @@ Dependencies: The organizers have used the following libraries to generate the s
 * tqdm==4.64.0
 * h5py==3.7.0
 
-For a complete overview of the dependencies within our Anaconda environment, please refer [here (rfsionna)](https://github.com/RFChallenge/rfchallenge_singlechannel_starter_grandchallenge2023/blob/0.2.0/rfsionna_env.yml). Additionally, if you're interested in the Torch-based baseline, you can find the respective Anaconda environment dependencies that the organizers used [here (rftorch)](https://github.com/RFChallenge/rfchallenge_singlechannel_starter_grandchallenge2023/blob/0.2.0/rftorch_env.yml).
+For a complete overview of the dependencies within our Anaconda environment, please refer [here (rfsionna)](https://github.com/RFChallenge/rfchallenge_singlechannel_starter_grandchallenge2023/blob/0.2.0/rfsionna_env.yml). Additionally, if you're interested in the PyTorch-based baseline, you can find the respective Anaconda environment dependencies that the organizers used [here (rftorch)](https://github.com/RFChallenge/rfchallenge_singlechannel_starter_grandchallenge2023/blob/0.2.0/rftorch_env.yml).
 
-Since participants are tasked with running their own inference, we are currently not imposing restrictions on the libraries for training and inference. However, the submissions are expected to be in the form numpy arrays (`.npy` files) that are compatible with our system (`numpy==1.21.6`).
+Since participants are tasked with running their own inference, we are currently not imposing restrictions on the libraries for training and inference. However, the submissions are expected to be in the form of numpy arrays (`.npy` files) that are compatible with our system (`numpy==1.21.6`).
 
 > Note: Diverging from the versions of the dependencies listed above might result in varied behaviors of the starter code. Participants are advised to check for version compatibility in their implementations and solutions.
 
@@ -127,18 +127,18 @@ We also provide some reference codes used by the organizers to train the baselin
 
 1.  Training Dataset Scripts: Used for creating an extensive training set. The shell script file with the relevant commands is included: sampletrain_gendataset_script.sh. Participants can refer to and modify (comment/uncomment) the relevant commands in the shell script. The corresponding python files used can be found in the `dataset_utils` directory and include:
     -   `example_generate_rfc_mixtures.py`: Creates 240,000 sample mixtures with varying random target SINR levels (ranging between -33 dB and 3 dB). The output targets 60 H5DF files, each containing 4,000 mixtures.    
-    -   `tfds_scripts/Dataset_[SOI Type]_[Interference Type]_Mixture.py`: Used in conjunction with the Tensorflow UNet training scripts; the H5DF files are processed into Tensorflow Datasets (TFDS) for training.
-    -  ` example_preprocess_npy_dataset.py`: Used in conjunction with the Torch WaveNet training scripts; the H5DF files are processed into separate npy files (one file per mixture). An associated dataloader is supplied within the PyTorch baseline code.
+    -   `tfds_scripts/Dataset_[SOI Type]_[Interference Type]_Mixture.py`: Used in conjunction with the Tensorflow UNet training scripts; the HDF5 files are processed into Tensorflow Datasets (TFDS) for training.
+    -  ` example_preprocess_npy_dataset.py`: Used in conjunction with the Torch WaveNet training scripts; the HDF5 files are processed into separate npy files (one file per mixture). An associated dataloader is supplied within the PyTorch baseline code.
     -   `example_generate_competition_trainmixture.py`: Another python script for generating example mixtures for training; this script creates a training set that is more aligned with the TestSet’s specifications (e.g., focusing solely on the 11 discrete target SINR levels). This script saves a pickle file `dataset/Training_Dataset_[SOI Type]_[Interference Type].pkl'` that contains `all_sig_mixture, all_sig1_groundtruth, all_bits1_groundtruth, meta_data`
 
 
 2.  Model Training Scripts: The competition organizers have curated two implementations:
-    -   UNet on Tensoflow: `train_unet_model.py`, accompanied with neural network specification in `src/unet_model.py`
+    -   UNet on Tensorflow: `train_unet_model.py`, accompanied with neural network specification in `src/unet_model.py`
     -   WaveNet on Torch: `train_torchwavenet.py`, accompanied with dependencies including `supervised_config.yml` and `src/configs`, `src/torchdataset.py`, `src/learner_torchwavenet.py`, `src/config_torchwavenet.py` and `src/torchwavenet.py`  
 
 While the provided scripts serve as a starting point, participants have no obligations to utilize them. These files are provided as references to aid those wishing to expand upon or employ the baseline methods.
 
-Trained model weights for the UNet and WaveNet can be obtained here: [reference_modes.zip](https://www.dropbox.com/scl/fi/890vztq67krephwyr0whb/reference_models.zip?rlkey=6yct3w8rx183f0l3ok2my6rej&dl=0).
+Trained model weights for the UNet and WaveNet can be obtained here: [reference_models.zip](https://www.dropbox.com/scl/fi/890vztq67krephwyr0whb/reference_models.zip?rlkey=6yct3w8rx183f0l3ok2my6rej&dl=0).
 
 Relevant bash commands:
 ```bash

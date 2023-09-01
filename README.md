@@ -7,6 +7,8 @@ For those eager to dive in, we have prepared a concise guide to get you started.
 Check out [notebook/RFC_QuickStart_Guide.ipynb](https://github.com/RFChallenge/rfchallenge_singlechannel_starter_grandchallenge2023/blob/0.2.0/notebook/RFC_QuickStart_Guide.ipynb) for practical code snippets. You will find steps to create a small but representative training set and steps for inference to generate your submission outputs.
 For a broader understanding and other helpful resources in the starter kit integral to the competition, please see the details and references provided below.
 
+[Link to InterferenceSet](https://www.dropbox.com/scl/fi/zlvgxlhp8het8j8swchgg/dataset.zip?rlkey=4rrm2eyvjgi155ceg8gxb5fc4&dl=0)
+
 ## TestSet for Evaluation
 
 This starter kit equips you with essential resources to develop signal separation and interference rejection solutions. In this competition, the crux of the evaluation hinges on your ability to handle provided signal mixtures. Your task will be twofold:
@@ -126,17 +128,16 @@ For a grasp of the basic functionalities concerning the communication signals (t
 We also provide some reference codes used by the organizers to train the baseline methods. These files include:
 
 1.  Training Dataset Scripts: Used for creating an extensive training set. The shell script file with the relevant commands is included: sampletrain_gendataset_script.sh. Participants can refer to and modify (comment/uncomment) the relevant commands in the shell script. The corresponding python files used can be found in the `dataset_utils` directory and include:
-    -   `example_generate_rfc_mixtures.py`: Creates 240,000 sample mixtures with varying random target SINR levels (ranging between -33 dB and 3 dB). The output targets 60 H5DF files, each containing 4,000 mixtures.    
+    -   `example_generate_competition_trainmixture.py`: A python script for generating example mixtures for training; this script creates a training set that is more aligned with the TestSet’s specifications (e.g., focusing solely on the 11 discrete target SINR levels). This script saves a pickle file `dataset/Training_Dataset_[SOI Type]_[Interference Type].pkl'` that contains `all_sig_mixture, all_sig1_groundtruth, all_bits1_groundtruth, meta_data`.
+    -   `example_generate_rfc_mixtures.py`: Another python script that creates 240,000 sample mixtures with varying random target SINR levels (ranging between -33 dB and 3 dB). For each signal mixture configuration, the output is saved as 60 HDF5 files, each containing 4,000 mixtures. This is the organizers' choice when generating the training set (for better generalization properties, while setting aside the metadata for implementation simplicity). 
     -   `tfds_scripts/Dataset_[SOI Type]_[Interference Type]_Mixture.py`: Used in conjunction with the Tensorflow UNet training scripts; the HDF5 files are processed into Tensorflow Datasets (TFDS) for training.
     -  ` example_preprocess_npy_dataset.py`: Used in conjunction with the Torch WaveNet training scripts; the HDF5 files are processed into separate npy files (one file per mixture). An associated dataloader is supplied within the PyTorch baseline code.
-    -   `example_generate_competition_trainmixture.py`: Another python script for generating example mixtures for training; this script creates a training set that is more aligned with the TestSet’s specifications (e.g., focusing solely on the 11 discrete target SINR levels). This script saves a pickle file `dataset/Training_Dataset_[SOI Type]_[Interference Type].pkl'` that contains `all_sig_mixture, all_sig1_groundtruth, all_bits1_groundtruth, meta_data`
-
-
+    
 2.  Model Training Scripts: The competition organizers have curated two implementations:
     -   UNet on Tensorflow: `train_unet_model.py`, accompanied with neural network specification in `src/unet_model.py`
     -   WaveNet on Torch: `train_torchwavenet.py`, accompanied with dependencies including `supervised_config.yml` and `src/configs`, `src/torchdataset.py`, `src/learner_torchwavenet.py`, `src/config_torchwavenet.py` and `src/torchwavenet.py`  
 
-While the provided scripts serve as a starting point, participants have no obligations to utilize them. These files are provided as references to aid those wishing to expand upon or employ the baseline methods.
+While the provided scripts serve as a starting point, participants have no obligations to utilize them. These files are provided as references to aid those wishing to expand upon or employ the baseline methods. Participants are encouraged to explore other possible strategies for creating training sets from the corresponding InterferenceSet frames and SOI generation functions, as well as more effective ways of utilizing relevant information (e.g., the metadata). 
 
 Trained model weights for the UNet and WaveNet can be obtained here: [reference_models.zip](https://www.dropbox.com/scl/fi/890vztq67krephwyr0whb/reference_models.zip?rlkey=6yct3w8rx183f0l3ok2my6rej&dl=0).
 
@@ -153,7 +154,7 @@ rm reference_models.zip
 
 As you embark on this challenge, we would like to offer avenues for assistance.
 Below are several channels through which you can reach out to us for help. Our commitment is to foster an environment that aids understanding and collaboration. Your questions, feedback, and concerns are instrumental in ensuring a seamless competition.
-* Discord: [To be provided]
+* Discord: [Invitation Link (to be updated)](https://discord.gg/7TJGQwb4)
 
 * Github (under the Issues tab): https://github.com/RFChallenge/rfchallenge_singlechannel_starter_grandchallenge2023/issues
 

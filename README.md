@@ -1,6 +1,6 @@
 # Single-Channel RF Challenge Starter Code
 
-[Click here for details on the challenge setup]()
+[Click here for details on the challenge setup (To be added)]()
 
 For those eager to dive in, we have prepared a concise guide to get you started.
 
@@ -154,7 +154,7 @@ rm reference_models.zip
 
 As you embark on this challenge, we would like to offer avenues for assistance.
 Below are several channels through which you can reach out to us for help. Our commitment is to foster an environment that aids understanding and collaboration. Your questions, feedback, and concerns are instrumental in ensuring a seamless competition.
-* Discord: [Invitation Link (to be updated)](https://discord.gg/7TJGQwb4)
+* Discord: [Invitation Link https://discord.gg/4thrZCVsTu](https://discord.gg/4thrZCVsTu)
 
 * Github (under the Issues tab): https://github.com/RFChallenge/rfchallenge_singlechannel_starter_grandchallenge2023/issues
 

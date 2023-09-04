@@ -1,4 +1,4 @@
-# Single-Channel RF Challenge Starter Code
+# Starter Code for ICASSP 2024 SP Grand Challenge: Data-Driven Signal Separation in Radio Spectrum
 
 [Click here for details on the challenge setup](https://rfchallenge.mit.edu/wp-content/uploads/2023/09/ICASSP24_single_channel.pdf)
 

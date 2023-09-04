@@ -1,6 +1,6 @@
 # Single-Channel RF Challenge Starter Code
 
-[Click here for details on the challenge setup (To be added)]()
+[Click here for details on the challenge setup]()
 
 For those eager to dive in, we have prepared a concise guide to get you started.
 

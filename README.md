@@ -4,7 +4,7 @@
 
 For those eager to dive in, we have prepared a concise guide to get you started.
 
-Check out [notebook/RFC_QuickStart_Guide.ipynb](https://github.com/RFChallenge/rfgrandchallenge2024/blob/0.2.0/notebook/RFC_QuickStart_Guide.ipynb) for practical code snippets. You will find steps to create a small but representative training set and steps for inference to generate your submission outputs.
+Check out [notebook/RFC_QuickStart_Guide.ipynb](https://github.com/RFChallenge/icassp2024rfchallenge/blob/0.2.0/notebook/RFC_QuickStart_Guide.ipynb) for practical code snippets. You will find steps to create a small but representative training set and steps for inference to generate your submission outputs.
 For a broader understanding and other helpful resources in the starter kit integral to the competition, please see the details and references provided below.
 
 [Link to InterferenceSet](https://www.dropbox.com/scl/fi/zlvgxlhp8het8j8swchgg/dataset.zip?rlkey=4rrm2eyvjgi155ceg8gxb5fc4&dl=0)
@@ -69,7 +69,7 @@ _The intellectual property (IP) is not transferred to the challenge organizers; 
 ## Starter Code Setup:
 Relevant bash commands to set up the starter code:
 ```bash
-git clone https://github.com/RFChallenge/rfgrandchallenge2024.git rfchallenge
+git clone https://github.com/RFChallenge/icassp2024rfchallenge.git rfchallenge
 cd rfchallenge
 
 # To obtain the dataset
@@ -91,7 +91,7 @@ Dependencies: The organizers have used the following libraries to generate the s
 * tqdm==4.64.0
 * h5py==3.7.0
 
-For a complete overview of the dependencies within our Anaconda environment, please refer [here (rfsionna)](https://github.com/RFChallenge/rfgrandchallenge2024/blob/0.2.0/rfsionna_env.yml). Additionally, if you're interested in the PyTorch-based baseline, you can find the respective Anaconda environment dependencies that the organizers used [here (rftorch)](https://github.com/RFChallenge/rfgrandchallenge2024/blob/0.2.0/rftorch_env.yml).
+For a complete overview of the dependencies within our Anaconda environment, please refer [here (rfsionna)](https://github.com/RFChallenge/icassp2024rfchallenge/blob/0.2.0/rfsionna_env.yml). Additionally, if you're interested in the PyTorch-based baseline, you can find the respective Anaconda environment dependencies that the organizers used [here (rftorch)](https://github.com/RFChallenge/icassp2024rfchallenge/blob/0.2.0/rftorch_env.yml).
 
 Since participants are tasked with running their own inference, we are currently not imposing restrictions on the libraries for training and inference. However, the submissions are expected to be in the form of numpy arrays (`.npy` files) that are compatible with our system (`numpy==1.21.6`).
 
@@ -157,7 +157,7 @@ As you embark on this challenge, we would like to offer avenues for assistance.
 Below are several channels through which you can reach out to us for help. Our commitment is to foster an environment that aids understanding and collaboration. Your questions, feedback, and concerns are instrumental in ensuring a seamless competition.
 * Discord (Invitation Link): https://discord.gg/4thrZCVsTu
 
-* Github (under the Issues tab): https://github.com/RFChallenge/rfgrandchallenge2024/issues
+* Github (under the Issues tab): https://github.com/RFChallenge/icassp2024rfchallenge/issues
 
 * Email: rfchallenge@mit.edu
     >Note: Please be aware that the organizers reserve the right to publicly share email exchanges on any of the above channels. This is done to promote information dissemination and provide clarifications to commonly asked questions.

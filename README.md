@@ -1,6 +1,6 @@
 # Single-Channel RF Challenge Starter Code
 
-[Click here for details on the challenge setup]()
+[Click here for details on the challenge setup](https://rfchallenge.mit.edu/wp-content/uploads/2023/09/ICASSP24_single_channel.pdf)
 
 For those eager to dive in, we have prepared a concise guide to get you started.
 

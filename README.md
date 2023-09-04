@@ -64,6 +64,8 @@ For every configuration defined by a specific SOI Type and Interference Type, pa
 
 For guidance on mapping the SOI signal to the information bits, participants are advised to consult the provided demodulation helper functions (e.g., as used in [notebook/RFC_EvalSet_Demo.ipynb](https://github.com/RFChallenge/rfchallenge_singlechannel_starter_grandchallenge2023/blob/0.2.0/notebook/RFC_EvalSet_Demo.ipynb)).
 
+Submissions should be sent to the organizers at rfchallenge@mit.edu.
+
 _The intellectual property (IP) is not transferred to the challenge organizers; in other words, if code is shared or submitted, the participants retain ownership of their code._
 
 ## Starter Code Setup:

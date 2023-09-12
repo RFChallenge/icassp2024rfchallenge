@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Create SampleEvalSet in the 'dataset' folder
+# Create TestSet1Example in the 'dataset' folder
 python sampletest_testmixture_generator.py QPSK EMISignal1
 python sampletest_testmixture_generator.py QPSK CommSignal2
 python sampletest_testmixture_generator.py QPSK CommSignal3

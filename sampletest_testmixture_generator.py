@@ -41,7 +41,7 @@ def get_soi_generation_fn(soi_sig_type):
 def generate_demod_testmixture(soi_type, interference_sig_type):
 
     generate_soi, demod_soi = get_soi_generation_fn(soi_type)
-    with h5py.File(os.path.join('dataset', 'test1_frame', interference_sig_type+'_test1_raw_data.h5'),'r') as data_h5file:
+    with h5py.File(os.path.join('dataset', 'testset1_frame', interference_sig_type+'_test1_raw_data.h5'),'r') as data_h5file:
         sig_data = np.array(data_h5file.get('dataset'))
         sig_type_info = data_h5file.get('sig_type')[()]
         if isinstance(sig_type_info, bytes):

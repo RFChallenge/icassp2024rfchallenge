@@ -13,7 +13,7 @@
 # python dataset_utils/example_generate_rfc_mixtures.py --soi_sig_type OFDMQPSK --interference_sig_type CommSignal5G1
 
 
-# # Create TFDS Dataset from 'dataset' folder
+# # Create TFDS Dataset from 'dataset' folder (for TF UNet training)
 # tfds build dataset_utils/tfds_scripts/Dataset_QPSK_CommSignal2_Mixture.py --data_dir tfds/
 # tfds build dataset_utils/tfds_scripts/Dataset_QPSK_CommSignal3_Mixture.py --data_dir tfds/
 # tfds build dataset_utils/tfds_scripts/Dataset_QPSK_CommSignal5G1_Mixture.py --data_dir tfds/
@@ -25,7 +25,7 @@
 # tfds build dataset_utils/tfds_scripts/Dataset_OFDMQPSK_EMISignal1_Mixture.py --data_dir tfds/
 
 
-# # Create TFDS Dataset from 'dataset' folder
+# # Create NPY Dataset from 'dataset' folder (for PyTorch Wavenet training)
 # python dataset_utils/example_preprocess_npy_dataset.py QPSK_CommSignal2
 # python dataset_utils/example_preprocess_npy_dataset.py QPSK_CommSignal3
 # python dataset_utils/example_preprocess_npy_dataset.py QPSK_CommSignal5G1

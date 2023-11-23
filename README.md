@@ -2,6 +2,11 @@
 
 [Click here for details on the challenge setup](https://rfchallenge.mit.edu/wp-content/uploads/2023/09/ICASSP24_single_channel.pdf)
 
+## November 23, 2023 UPDATE: TestSet2Mixture has been released.
+For participants of the ICASSP 2024 SP Grand Challenge for Data-Driven Signal Separation in Radio Spectrum, the final test set for evaluation has been released.
+
+[Click here for TestSet2Mixture files]([https://www.dropbox.com/scl/fi/d2kjtfmbh3mgxddbubf80/TestSet1Mixture.zip?rlkey=lwhzt1ayn2bqwosc9o9cq9dwr&dl=0](https://www.dropbox.com/scl/fi/m36l2imiit5svqz1yz46g/TestSet2Mixture.zip?rlkey=n5mwzi11l55l2xzfw9ee5m0ye&dl=0))
+
 For those eager to dive in, we have prepared a concise guide to get you started.
 
 Check out [notebook/RFC_QuickStart_Guide.ipynb](https://github.com/RFChallenge/icassp2024rfchallenge/blob/0.2.0/notebook/RFC_QuickStart_Guide.ipynb) for practical code snippets. You will find steps to create a small but representative training set and steps for inference to generate your submission outputs.
@@ -36,7 +41,7 @@ Note that the Ground Truth of TestSet1Mixture will not be released. Participants
 Participants are also provided with starter code to generate similar testing set mixtures (refer to "Helper Functions for Testing" and TestSet1Example) for their own testing.
 
 ### TestSet2:
-***Expected November 25, 2023 (Not yet released)***
+[Click here for TestSet2Mixture files]([https://www.dropbox.com/scl/fi/d2kjtfmbh3mgxddbubf80/TestSet1Mixture.zip?rlkey=lwhzt1ayn2bqwosc9o9cq9dwr&dl=0](https://www.dropbox.com/scl/fi/m36l2imiit5svqz1yz46g/TestSet2Mixture.zip?rlkey=n5mwzi11l55l2xzfw9ee5m0ye&dl=0))
 
 50 frames of each interference type have been designated for TestSet2. Please note that this set will not be made available during the competition.
 
